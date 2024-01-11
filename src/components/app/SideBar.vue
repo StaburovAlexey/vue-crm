@@ -1,18 +1,23 @@
 <template>
-  <ul class="sidenav app-sidenav open">
-    <router-link
-      active-class="active"
-      to="/"
-      exact
+  <ul class="sidenav app-sidenav" :class="{ open: modelValue }">
+    <li
       v-for="link in links"
       :key="link.url"
+      :class="{ active: isActive === link.url }"
     >
-      <a href="#" class="waves-effect waves-orange pointer">{{ link.title }}</a>
-    </router-link>
+      <router-link
+        class="waves-effect waves-orange pointer"
+        :to="link.url"
+        exact
+      >
+        {{ link.title }}
+      </router-link>
+    </li>
   </ul>
 </template>
 <script>
 export default {
+  props: ["modelValue"],
   data: () => ({
     links: [
       { title: "Счет", url: "/" },
@@ -22,5 +27,10 @@ export default {
       { title: "Категория", url: "/categories" },
     ],
   }),
+  computed: {
+    isActive() {
+      return this.$route.path;
+    },
+  },
 };
 </script>

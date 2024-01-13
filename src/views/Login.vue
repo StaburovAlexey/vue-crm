@@ -6,23 +6,33 @@
         <input
           id="email"
           type="text"
-          v-model.trim="email"
+          v-model.trim="v$.email.$model"
           :class="{
-            invalid: v$.email.$invalid,
+            invalid: v$.email.$error,
           }"
         />
         <label for="email">Email</label>
-        <small class="helper-text invalid" v-if="!v$.email.required"
-          >Поле Email не должно быть пустым
-        </small>
-        <!-- <small class="helper-text invalid" v-else-if="v$.email.email"
+        <small class="helper-text invalid" v-if="v$.email.required.$invalid"
+          >Обязательное поле ввода</small
+        >
+        <small class="helper-text invalid" v-else-if="v$.email.email.$invalid"
           >Введите коректный Email
-        </small> -->
+        </small>
       </div>
       <div class="input-field">
-        <input id="password" type="password" class="validate" />
+        <input
+          id="password"
+          type="password"
+          class="validate"
+          v-model.trim="v$.password.$model"
+          :class="{
+            invalid: v$.password.$error,
+          }"
+        />
         <label for="password">Пароль</label>
-        <small class="helper-text invalid">Password</small>
+        <small class="helper-text invalid" v-if="v$.password.minLength.$invalid"
+          >Пароль должен быть не меньше 6 символов</small
+        >
       </div>
     </div>
     <div class="card-action">
@@ -54,12 +64,11 @@ export default {
   }),
   methods: {
     submitHandler() {
-      if (this.v$.$invalid) {
-        this.v$.$touch();
-        return;
+      if (!this.v$.$invalid) {
+        console.log("все четко");
       }
-
-      this.$router.push("/");
+      this.v$.$touch();
+      // this.$router.push("/");
     },
   },
   validations() {

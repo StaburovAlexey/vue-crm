@@ -62,12 +62,20 @@ export default {
     email: "",
     password: "",
   }),
+  mounted() {
+    this.$message("test");
+  },
   methods: {
     submitHandler() {
       if (!this.v$.$invalid) {
-        console.log("все четко");
+        const formData = {
+          email: this.email,
+          password: this.password,
+        };
+        console.log(formData);
       }
       this.v$.$touch();
+
       // this.$router.push("/");
     },
   },

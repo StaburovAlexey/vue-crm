@@ -17,7 +17,10 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getDatabase(app);
+const db = getDatabase(
+  app,
+  "https://vue-crm-4483a-default-rtdb.europe-west1.firebasedatabase.app/"
+);
 let appVue;
 auth.onAuthStateChanged(() => {
   if (!appVue) {

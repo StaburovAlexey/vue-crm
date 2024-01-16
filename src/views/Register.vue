@@ -85,18 +85,19 @@ export default {
     agree: false,
   }),
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (!this.v$.$invalid) {
         const formData = {
           email: this.email,
           password: this.password,
           name: this.name,
         };
-        console.log(formData);
+        try {
+          await this.$store.dispatch("registr", formData);
+          this.$router.push("/");
+        } catch (e) {}
       }
       this.v$.$touch();
-
-      // this.$router.push("/");
     },
   },
   validations() {

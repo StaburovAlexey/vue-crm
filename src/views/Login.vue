@@ -62,17 +62,20 @@ export default {
     email: "",
     password: "",
   }),
-  mounted() {
-    this.$message("test");
-  },
+
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (!this.v$.$invalid) {
         const formData = {
           email: this.email,
           password: this.password,
         };
-        console.log(formData);
+
+        try {
+          await this.$store.dispatch("login", formData);
+          console.log(formData);
+          this.$router.push("/");
+        } catch (e) {}
       }
       this.v$.$touch();
 

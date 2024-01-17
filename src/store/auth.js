@@ -31,8 +31,9 @@ export default {
     getUid() {
       return auth.currentUser?.uid || null;
     },
-    async logout() {
+    async logout({ commit }) {
       await signOut(auth);
+      commit("clearInfo");
     },
   },
 };

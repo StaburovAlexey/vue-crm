@@ -1,9 +1,7 @@
 <template>
-  <div id="app">
-    <component :is="layout">
-      <router-view></router-view>
-    </component>
-  </div>
+  <component :is="layout">
+    <router-view></router-view>
+  </component>
 </template>
 <script>
 import EmptyLayout from "./layout/EmptyLayout.vue";
@@ -12,7 +10,7 @@ import MainLayout from "./layout/MainLayout.vue";
 export default {
   computed: {
     layout() {
-      // return console.log(this.$route.meta.layout + "-layout");
+      console.log(this.$route.meta.layout + "-layout");
       return this.$route.meta.layout + `-layout`;
     },
   },
